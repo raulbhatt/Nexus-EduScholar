@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Scholar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              nexus: {
+                900: '#0f172a',
+                800: '#1e293b',
+                500: '#3b82f6',
+                400: '#60a5fa',
+                accent: '#06b6d4', // Cyan
+                purple: '#8b5cf6',
+              }
+            },
+            animation: {
+              'spin-slow': 'spin 20s linear infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scanline': 'scanline 4s linear infinite',
+            },
+            keyframes: {
+              scanline: {
+                '0%': { top: '0%' },
+                '100%': { top: '100%' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #020617; /* Very dark slate */
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+      .glass-panel {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+
+      /* Topic Entry Animations */
+      @keyframes space-enter {
+        0% { opacity: 0; transform: scale(1.05) translateY(10px); filter: blur(4px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+      }
+      @keyframes quantum-enter {
+        0% { opacity: 0; transform: translateX(-10px) skewX(-5deg); filter: hue-rotate(90deg); }
+        100% { opacity: 1; transform: translateX(0) skewX(0); filter: hue-rotate(0); }
+      }
+      @keyframes tech-enter {
+        0% { opacity: 0; transform: translateY(20px); clip-path: inset(0 0 100% 0); }
+        100% { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0); }
+      }
+      
+      .animate-space-enter { animation: space-enter 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      .animate-quantum-enter { animation: quantum-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+      .animate-tech-enter { animation: tech-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+      /* Splash Screen Orbitals */
+      @keyframes orbit-1 { from { transform: rotate3d(1, 1, 1, 0deg); } to { transform: rotate3d(1, 1, 1, 360deg); } }
+      @keyframes orbit-2 { from { transform: rotate3d(1, 0, 1, 0deg); } to { transform: rotate3d(1, 0, 1, 360deg); } }
+      @keyframes orbit-3 { from { transform: rotate3d(0, 1, 1, 0deg); } to { transform: rotate3d(0, 1, 1, 360deg); } }
+      
+      .orbit-ring-1 { animation: orbit-1 3s linear infinite; }
+      .orbit-ring-2 { animation: orbit-2 4s linear infinite; }
+      .orbit-ring-3 { animation: orbit-3 5s linear infinite; }
+
+      /* Neural Viz Flow */
+      @keyframes dash-flow {
+        to { stroke-dashoffset: -24; }
+      }
+      .animate-dash-flow {
+        animation: dash-flow 1s linear infinite;
+      }
+
+      /* Content Transitions */
+      @keyframes slide-up-fade {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .animate-slide-up-fade {
+        animation: slide-up-fade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Shimmering Skeleton Effect */
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .shimmer-skeleton {
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(30, 41, 59, 0.5);
+      }
+      .shimmer-skeleton::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.03) 20%,
+          rgba(255, 255, 255, 0.08) 60%,
+          rgba(255, 255, 255, 0)
+        );
+        animation: shimmer 2s infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "recharts": "https://esm.sh/recharts@^3.5.1?external=react,react-dom",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0?external=react,react-dom"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
